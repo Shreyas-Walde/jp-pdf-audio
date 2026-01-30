@@ -1,13 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_JP } from 'next/font/google';
 import './globals.css';
-
-const notojp = Noto_Sans_JP({
-    subsets: ['latin'],
-    weight: ['400', '500', '700'],
-    variable: '--font-sans',
-    display: 'swap',
-});
 
 export const metadata: Metadata = {
     title: '日本語PDF音声リーダー | Japanese PDF Audio Reader',
@@ -20,7 +12,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="ja" className={notojp.variable}>
+        <html lang="ja">
+            <head>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+                    rel="stylesheet"
+                />
+            </head>
             <body>{children}</body>
         </html>
     );
