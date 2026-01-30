@@ -1,17 +1,15 @@
 # Railway deployment configuration
-# Deploy: https://railway.app
+# Using Dockerfile for build
 
 [build]
-# Builder for Next.js frontend
-builder = "NIXPACKS"
+# Use Dockerfile instead of Nixpacks
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [deploy]
-# Health check endpoint
+# Health check
 healthcheckPath = "/"
 healthcheckTimeout = 300
-
-# Start the Next.js app
-startCommand = "cd web && npm run start"
 
 # Number of instances
 numReplicas = 1
