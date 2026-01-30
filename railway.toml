@@ -1,0 +1,23 @@
+# Railway deployment configuration
+# Deploy: https://railway.app
+
+[build]
+# Builder for Next.js frontend
+builder = "NIXPACKS"
+
+[deploy]
+# Health check endpoint
+healthcheckPath = "/"
+healthcheckTimeout = 300
+
+# Start the Next.js app
+startCommand = "cd web && npm run start"
+
+# Number of instances
+numReplicas = 1
+
+[env]
+# Node environment
+NODE_ENV = "production"
+# Port (Railway sets this automatically)
+PORT = { default = "3000" }

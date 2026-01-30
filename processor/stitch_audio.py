@@ -184,7 +184,7 @@ def stitch_chapter_audio(
 def get_sentence_audio_paths(
     sentence_ids: List[str],
     audio_dir: Optional[Path] = None,
-    extension: str = "wav"
+    extension: str = "mp3"
 ) -> List[Path]:
     """
     Get paths to sentence audio files by their IDs.
@@ -192,7 +192,7 @@ def get_sentence_audio_paths(
     Args:
         sentence_ids: List of sentence IDs.
         audio_dir: Directory containing sentence audio.
-        extension: Audio file extension.
+        extension: Audio file extension (default: mp3 for edge-tts).
         
     Returns:
         List of paths (only existing files).

@@ -160,10 +160,119 @@ def normalize_japanese_punctuation(text: str) -> str:
     return text
 
 
+def remove_pdf_extraction_junk(text: str) -> str:
+    """
+    Remove non-linguistic junk characters introduced by PDF text extraction.
+    
+    PDF extraction often introduces artifacts like:
+    - Standalone ASCII letters (e.g., 'h', 'a') between Japanese text
+    - Standalone digits (e.g., '0', '1') not part of Japanese words
+    - Backslashes and escape sequences
+    - Other non-Japanese layout artifacts
+    
+    Preserves:
+    - Hiragana (U+3040-U+309F)
+    - Katakana (U+30A0-U+30FF)
+    - Kanji (CJK Unified Ideographs)
+    - Japanese punctuation (。！？、「」『』（）・ー〜々)
+    - Full-width numbers and letters (when used in context)
+    - Newlines and basic whitespace (for sentence structure)
+    
+    Args:
+        text: Text with potential PDF extraction junk.
+        
+    Returns:
+        Cleaned text with junk characters removed.
+    """
+    # Pattern to match Japanese characters and allowed symbols
+    japanese_pattern = re.compile(
+        r"[\u3040-\u309F"   # Hiragana
+        r"\u30A0-\u30FF"    # Katakana  
+        r"\u4E00-\u9FFF"    # CJK Unified Ideographs (common kanji)
+        r"\u3400-\u4DBF"    # CJK Extension A
+        r"\uF900-\uFAFF"    # CJK Compatibility Ideographs
+        r"\u31F0-\u31FF"    # Katakana Phonetic Extensions
+        r"\uFF65-\uFF9F"    # Half-width Katakana
+        r"\u3000-\u303F"    # CJK Symbols and Punctuation
+        r"\uFF01-\uFF60"    # Full-width ASCII variants
+        r"。、！？「」『』（）・ー〜々…‥]"  # Explicit Japanese punctuation
+    )
+    
+    # Pattern to match junk characters that should be removed
+    junk_pattern = re.compile(r"[a-zA-Z0-9\\\/]+")
+    
+    def is_japanese(char: str) -> bool:
+        """Check if a character is Japanese (hiragana, katakana, kanji, or JP punctuation)."""
+        return bool(japanese_pattern.match(char))
+    
+    def process_line(line: str) -> str:
+        """Process a single line, removing junk characters between Japanese text."""
+        if not line.strip():
+            return line
+        
+        # Find all runs of junk characters and their positions
+        result = []
+        i = 0
+        chars = list(line)
+        
+        while i < len(chars):
+            char = chars[i]
+            
+            # If it's a Japanese character or whitespace, keep it
+            if is_japanese(char) or char in " \t":
+                result.append(char)
+                i += 1
+                continue
+            
+            # Check for junk characters (ASCII letters, digits, backslashes)
+            if char in "\\/" or (char.isascii() and char.isalnum()):
+                # Collect the entire run of potential junk
+                junk_start = i
+                junk_run = ""
+                while i < len(chars):
+                    c = chars[i]
+                    if c in "\\/" or (c.isascii() and c.isalnum()):
+                        junk_run += c
+                        i += 1
+                    else:
+                        break
+                
+                # Check context: what comes before and after this junk run?
+                prev_char = chars[junk_start - 1] if junk_start > 0 else ""
+                next_char = chars[i] if i < len(chars) else ""
+                
+                prev_is_japanese = is_japanese(prev_char) if prev_char else False
+                next_is_japanese = is_japanese(next_char) if next_char else False
+                
+                # If junk is between Japanese characters, it's extraction noise - remove it
+                # Also remove if it's short (1-2 chars) and at least one neighbor is Japanese
+                if prev_is_japanese and next_is_japanese:
+                    # Definitely junk - skip it
+                    continue
+                elif len(junk_run) <= 2 and (prev_is_japanese or next_is_japanese):
+                    # Short junk adjacent to Japanese text - likely noise
+                    continue
+                else:
+                    # Might be intentional (longer sequences, or at line edges)
+                    result.append(junk_run)
+                continue
+            
+            # Keep other characters (punctuation, etc. that isn't specifically junk)
+            result.append(char)
+            i += 1
+        
+        return "".join(result)
+    
+    # Process each line
+    lines = text.split("\n")
+    return "\n".join(process_line(line) for line in lines)
+
+
 def normalize_text(
     text: str,
     remove_artifacts: bool = True,
-    normalize_punctuation: bool = True
+    normalize_punctuation: bool = True,
+    remove_extraction_junk: bool = True
 ) -> str:
     """
     Normalize Japanese text extracted from a PDF.
@@ -171,14 +280,17 @@ def normalize_text(
     Applies a series of normalization steps:
     1. Unicode NFKC normalization
     2. Control character removal
-    3. Layout artifact removal (optional)
-    4. Japanese punctuation normalization (optional)
-    5. Whitespace normalization
+    3. PDF extraction junk removal (optional)
+    4. Layout artifact removal (optional)
+    5. Japanese punctuation normalization (optional)
+    6. Whitespace normalization
     
     Args:
         text: Raw text to normalize.
         remove_artifacts: Whether to remove layout artifacts (page numbers, etc.)
         normalize_punctuation: Whether to normalize Japanese punctuation.
+        remove_extraction_junk: Whether to remove PDF extraction junk (standalone
+            ASCII letters/digits, backslashes between Japanese text).
         
     Returns:
         Clean, normalized Japanese text.
@@ -192,15 +304,19 @@ def normalize_text(
     # Step 2: Remove control characters
     text = remove_control_characters(text)
     
-    # Step 3: Remove layout artifacts
+    # Step 3: Remove PDF extraction junk (standalone ASCII chars, backslashes)
+    if remove_extraction_junk:
+        text = remove_pdf_extraction_junk(text)
+    
+    # Step 4: Remove layout artifacts
     if remove_artifacts:
         text = remove_layout_artifacts(text)
     
-    # Step 4: Normalize Japanese punctuation
+    # Step 5: Normalize Japanese punctuation
     if normalize_punctuation:
         text = normalize_japanese_punctuation(text)
     
-    # Step 5: Normalize whitespace (always do this last)
+    # Step 6: Normalize whitespace (always do this last)
     text = normalize_whitespace(text)
     
     return text.strip()
@@ -209,20 +325,21 @@ def normalize_text(
 if __name__ == "__main__":
     import sys
     
-    # Demo with sample Japanese text
+    # Demo with sample Japanese text containing PDF extraction junk
     sample_text = """
     第1課　はじめまして
     
     1
     
-    こんにちは｡私は田中です｡
-    よろしくお願いします。
+    こんにちは｡私h0は田中\\です｡
+    よろしくaお願いします。
     
     ---
     
     2
     
-    日本語を勉強しています。
+    日本語0を勉強hしています。
+    これはテ\\ストです。
     """
     
     if len(sys.argv) > 1:

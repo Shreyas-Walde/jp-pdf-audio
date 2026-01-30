@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/chapters/[chapterId]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/chapters/[chapterId]/page.js"
+      "static/chunks/app/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,10 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/books/[bookId]/page.js"
     ],
-    "/page": [
+    "/chapters/[chapterId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/chapters/[chapterId]/page.js"
     ]
   }
 }

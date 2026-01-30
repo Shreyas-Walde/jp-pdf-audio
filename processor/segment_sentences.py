@@ -3,14 +3,19 @@ Sentence segmentation module for the Japanese PDF Audio Reader.
 
 This module handles:
 - Splitting chapter text into individual sentences
-- Using spaCy with Japanese model (ja_core_news_sm)
+- Rule-based segmentation on Japanese punctuation (PRIMARY)
+- spaCy with Japanese model as optional fallback
 - Generating unique sentence IDs
 
 Japanese sentence boundaries are detected using:
-- Full-width period (。)
-- Question marks (？ and ?)
-- Exclamation marks (！ and !)
-- End of quoted speech patterns
+- Full-width period (。) - primary sentence terminator
+- Question marks (？) - interrogative terminator
+- Exclamation marks (！) - exclamatory terminator
+
+Rule-based segmentation is preferred for Japanese textbooks because:
+1. Textbooks use consistent, standard punctuation
+2. NLP models like spaCy may over-merge short conversational sentences
+3. Deterministic behavior is more predictable for TTS
 
 Usage:
     from processor.segment_sentences import segment_sentences
@@ -86,27 +91,30 @@ def segment_with_spacy(text: str, nlp) -> List[str]:
     return sentences
 
 
-def segment_with_regex(text: str) -> List[str]:
+def segment_with_rules(text: str) -> List[str]:
     """
-    Segment text into sentences using regex (fallback method).
+    Segment text into sentences using rule-based Japanese punctuation splitting.
     
-    This is a deterministic rule-based approach for Japanese text.
+    This is the PRIMARY segmentation method for Japanese textbooks.
+    
+    Splits on:
+    - 。 (full-width period) - standard sentence terminator
+    - ？ (full-width question mark) - interrogative
+    - ！ (full-width exclamation mark) - exclamatory
     
     Args:
         text: Japanese text to segment.
         
     Returns:
-        List of sentence strings.
+        List of sentence strings in order.
     """
-    logger.info("Using regex-based sentence segmentation")
+    logger.info("Using rule-based Japanese sentence segmentation")
     
-    # Japanese sentence-ending patterns
-    # - 。 (full-width period)
-    # - ？ or ? (question marks)
-    # - ！ or ! (exclamation marks)
-    # - 」 (closing quotation when followed by certain patterns)
+    # Japanese sentence-ending punctuation
+    # We focus on full-width variants as these are standard in Japanese text
+    # Half-width ?, ! are rare but included for robustness
     
-    # Split on sentence-ending punctuation, keeping the punctuation
+    # Split on sentence-ending punctuation, keeping the punctuation attached
     pattern = r'([。？！?!]+(?:」)?)'
     
     # Split and keep delimiters
@@ -132,7 +140,7 @@ def segment_with_regex(text: str) -> List[str]:
     if current.strip():
         sentences.append(current.strip())
     
-    logger.debug(f"Regex segmented into {len(sentences)} sentences")
+    logger.debug(f"Rule-based segmented into {len(sentences)} sentences")
     return sentences
 
 
@@ -155,45 +163,151 @@ def clean_sentence(sentence: str) -> str:
     return sentence
 
 
+@dataclass
+class ValidationResult:
+    """Result of sentence validation for TTS."""
+    is_valid: bool
+    reason: str
+    sentence: str
+
+
+def validate_sentence_for_tts(sentence: str, min_length: int = 2) -> ValidationResult:
+    """
+    Validate a sentence for TTS quality.
+    
+    This is a quality gate to prevent malformed text from being
+    sent to the TTS engine, which would produce incorrect audio.
+    
+    A sentence is VALID only if:
+    - Length > min_length characters
+    - Contains at least one Japanese character (hiragana, katakana, or kanji)
+    - Does NOT contain standalone ASCII digits mixed with Japanese
+    - Does NOT contain random ASCII letters mixed with Japanese
+    - Does NOT contain control characters
+    
+    Args:
+        sentence: The sentence text to validate.
+        min_length: Minimum character length (default: 2).
+        
+    Returns:
+        ValidationResult with is_valid, reason, and original sentence.
+    """
+    # Check minimum length
+    if len(sentence) < min_length:
+        return ValidationResult(
+            is_valid=False,
+            reason=f"Too short ({len(sentence)} chars, min: {min_length})",
+            sentence=sentence
+        )
+    
+    # Must contain at least one Japanese character
+    japanese_pattern = re.compile(
+        r"[\u3040-\u309F"   # Hiragana
+        r"\u30A0-\u30FF"    # Katakana
+        r"\u4E00-\u9FFF"    # CJK Unified Ideographs (kanji)
+        r"\u3400-\u4DBF]"   # CJK Extension A
+    )
+    
+    if not japanese_pattern.search(sentence):
+        return ValidationResult(
+            is_valid=False,
+            reason="No Japanese characters (hiragana, katakana, or kanji)",
+            sentence=sentence
+        )
+    
+    # Check for control characters (except newlines/tabs which should be stripped anyway)
+    control_pattern = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]")
+    if control_pattern.search(sentence):
+        return ValidationResult(
+            is_valid=False,
+            reason="Contains control characters",
+            sentence=sentence
+        )
+    
+    # Check for standalone ASCII digits between Japanese characters
+    # Pattern: Japanese char + digit(s) + Japanese char
+    ascii_digit_junk = re.compile(
+        r"[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]"  # Japanese char
+        r"[0-9]+"                                      # ASCII digits
+        r"[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]"  # Japanese char
+    )
+    if ascii_digit_junk.search(sentence):
+        return ValidationResult(
+            is_valid=False,
+            reason="Contains standalone ASCII digits mixed with Japanese",
+            sentence=sentence
+        )
+    
+    # Check for standalone ASCII letters between Japanese characters
+    # Pattern: Japanese char + letter(s) + Japanese char
+    ascii_letter_junk = re.compile(
+        r"[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]"  # Japanese char
+        r"[a-zA-Z]+"                                   # ASCII letters
+        r"[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]"  # Japanese char
+    )
+    if ascii_letter_junk.search(sentence):
+        return ValidationResult(
+            is_valid=False,
+            reason="Contains random ASCII letters mixed with Japanese",
+            sentence=sentence
+        )
+    
+    # Check for backslashes (common PDF extraction artifact)
+    if "\\" in sentence:
+        return ValidationResult(
+            is_valid=False,
+            reason="Contains backslash (likely extraction artifact)",
+            sentence=sentence
+        )
+    
+    # All checks passed
+    return ValidationResult(
+        is_valid=True,
+        reason="Valid",
+        sentence=sentence
+    )
+
+
 def is_valid_sentence(sentence: str, min_length: int = 2) -> bool:
     """
     Check if a sentence is valid for TTS processing.
+    
+    This is a simplified wrapper around validate_sentence_for_tts.
+    Use validate_sentence_for_tts() for detailed validation results.
     
     Args:
         sentence: The sentence to validate.
         min_length: Minimum character length.
         
     Returns:
-        True if the sentence is valid.
+        True if the sentence is valid for TTS.
     """
-    if len(sentence) < min_length:
-        return False
-    
-    # Must contain at least some Japanese characters or alphanumeric
-    has_content = bool(re.search(r'[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\w]', sentence))
-    
-    return has_content
+    result = validate_sentence_for_tts(sentence, min_length)
+    return result.is_valid
 
 
 def segment_sentences(
     text: str,
     chapter_id: str,
-    use_spacy: bool = True,
+    use_spacy_fallback: bool = False,
     min_length: int = 2
 ) -> List[Sentence]:
     """
     Segment chapter text into individual sentences.
     
-    Uses spaCy with ja_core_news_sm model for accurate Japanese
-    sentence segmentation. Falls back to regex-based segmentation
-    if spaCy is not available.
+    Uses rule-based Japanese punctuation splitting as the PRIMARY method.
+    This works best for textbooks with clear, consistent punctuation.
+    
+    spaCy can be used as an optional fallback for edge cases, but is
+    NOT recommended for typical textbook content as it tends to over-merge.
     
     This is a deterministic process with no LLM involvement.
     
     Args:
         text: Chapter text to segment.
         chapter_id: The chapter ID to associate sentences with.
-        use_spacy: Whether to attempt using spaCy (True by default).
+        use_spacy_fallback: If True, use spaCy for segmentation instead of
+            rule-based. NOT recommended for typical Japanese textbooks.
         min_length: Minimum sentence length to include.
         
     Returns:
@@ -206,16 +320,17 @@ def segment_sentences(
         logger.warning("Empty text provided, returning empty list")
         return []
     
-    # Try spaCy first
-    nlp = None
-    if use_spacy:
+    # Use rule-based segmentation as PRIMARY method
+    # spaCy is only used if explicitly requested (not recommended for textbooks)
+    if use_spacy_fallback:
         nlp = load_spacy_model()
-    
-    # Segment the text
-    if nlp is not None:
-        raw_sentences = segment_with_spacy(text, nlp)
+        if nlp is not None:
+            raw_sentences = segment_with_spacy(text, nlp)
+        else:
+            logger.warning("spaCy not available, falling back to rule-based")
+            raw_sentences = segment_with_rules(text)
     else:
-        raw_sentences = segment_with_regex(text)
+        raw_sentences = segment_with_rules(text)
     
     # Clean and validate sentences
     sentences = []

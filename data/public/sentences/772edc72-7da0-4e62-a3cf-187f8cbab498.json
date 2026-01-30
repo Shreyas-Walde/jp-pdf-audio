@@ -1,0 +1,140 @@
+{
+  "book": {
+    "id": "288466e1-bdfb-4ffe-a0ec-ae8746f72e5d",
+    "title": "Nihongo Shoho Test"
+  },
+  "chapter": {
+    "id": "772edc72-7da0-4e62-a3cf-187f8cbab498",
+    "title": "Chapter 1",
+    "orderIndex": 0,
+    "audioPath": null
+  },
+  "sentences": [
+    {
+      "id": "2aef92ce-25fb-40bf-aeb2-536839db6b2f",
+      "orderIndex": 0,
+      "text": "わたしはにほんじんです。",
+      "audioPath": null
+    },
+    {
+      "id": "b8d76a8b-ba0a-42c5-9378-036c05a9aa00",
+      "orderIndex": 1,
+      "text": "わたしははやしてすわたしはにほんじんです。",
+      "audioPath": null
+    },
+    {
+      "id": "00557b8f-fcf8-454e-b35b-42b133c42689",
+      "orderIndex": 2,
+      "text": "わたしはにほんごのせんせいですこんにちはわたしははやしですはじめましてわたしはジョンスミスですどうぞよろしくあなたはジョンさんですか。",
+      "audioPath": null
+    },
+    {
+      "id": "5d0e5cbb-667a-4edf-b887-3d555717375e",
+      "orderIndex": 3,
+      "text": "は、わたしはジョンです。",
+      "audioPath": null
+    },
+    {
+      "id": "727bfe2e-da21-4775-b57e-38f9c81bbef4",
+      "orderIndex": 4,
+      "text": "あなたはがくせいですか。",
+      "audioPath": null
+    },
+    {
+      "id": "cd9fb375-7f45-48ca-93d7-eb350ffa98b0",
+      "orderIndex": 5,
+      "text": "は、わたしはがくせいですあなたはフランスじんですか。",
+      "audioPath": null
+    },
+    {
+      "id": "c29ed5cf-78cb-4e01-902a-889fb489a547",
+      "orderIndex": 6,
+      "text": "いいえ,わたしはフランスじんではありませんアメリカじんですそのかたはインドネシアのアリさんですそのかたはどなたですか。",
+      "audioPath": null
+    },
+    {
+      "id": "a5811c58-5427-4aa6-9e9e-0c7627c17aa6",
+      "orderIndex": 7,
+      "text": "このかたはちゅうごくのチンさんですあのかたはどなたですか。",
+      "audioPath": null
+    },
+    {
+      "id": "a8e45fc0-c993-42a3-9216-d8b9b9117f33",
+      "orderIndex": 8,
+      "text": "あのおんなのかたです。",
+      "audioPath": null
+    },
+    {
+      "id": "ddd85c7d-d042-4ce6-a717-f2f15d1ebf12",
+      "orderIndex": 9,
+      "text": "あのかたはタイのラタナーさんですあのおとこのかたはどなたですか。",
+      "audioPath": null
+    },
+    {
+      "id": "7b76a82a-d697-40b5-8218-56d13ec84f6c",
+      "orderIndex": 10,
+      "text": "あのかたはフィリビンのガロさんですアリさんはにほんじんですか。",
+      "audioPath": null
+    },
+    {
+      "id": "52781104-fbcd-4ee9-9a49-eafdaadef6ad",
+      "orderIndex": 11,
+      "text": "いいえ,アリさんはにほんじんではありません。",
+      "audioPath": null
+    },
+    {
+      "id": "f53db677-8ba4-422b-9af4-64d742f3f486",
+      "orderIndex": 12,
+      "text": "アリさんはインドネシアじんですチンさんはにほんじんですか。",
+      "audioPath": null
+    },
+    {
+      "id": "03a3e4c0-6b41-4b65-bd21-c3e040245d5b",
+      "orderIndex": 13,
+      "text": "いいえ,チンさんもにほんじんではありません。",
+      "audioPath": null
+    },
+    {
+      "id": "4528c410-758b-4bb5-ad2e-721826807e70",
+      "orderIndex": 14,
+      "text": "チンさんはちゅうごくじんですラタナーさんもちゅうごくじんですか。",
+      "audioPath": null
+    },
+    {
+      "id": "e54154e8-0dc5-4838-9427-cb095c020da9",
+      "orderIndex": 15,
+      "text": "いいえ,ラタナーさんはちゅうごくじんではありません。",
+      "audioPath": null
+    },
+    {
+      "id": "c49261ab-9480-4caf-b247-5393fe4824e0",
+      "orderIndex": 16,
+      "text": "ラタナーさんはタイじんですれんしゅうぶんのかたわたしはオーストラリアのがくせいです。",
+      "audioPath": null
+    },
+    {
+      "id": "124c08bc-bab6-4295-bd11-7e508085ef9a",
+      "orderIndex": 17,
+      "text": "わたしはイギリスのがくせいです。",
+      "audioPath": null
+    },
+    {
+      "id": "b75b1a7d-900f-4b62-b949-982250a4bf34",
+      "orderIndex": 18,
+      "text": "わたしはマレーシアのがくせいです。",
+      "audioPath": null
+    },
+    {
+      "id": "35824417-6fa9-489b-9faa-81df99a46b44",
+      "orderIndex": 19,
+      "text": "わたしはシンガポールのがくせいです。",
+      "audioPath": null
+    },
+    {
+      "id": "c0b41d7f-6523-4598-9774-eef05734a13d",
+      "orderIndex": 20,
+      "text": "わたしはインドのがくせいです。",
+      "audioPath": null
+    }
+  ]
+}

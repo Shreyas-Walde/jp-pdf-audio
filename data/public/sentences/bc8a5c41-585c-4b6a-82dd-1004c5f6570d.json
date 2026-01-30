@@ -1,0 +1,230 @@
+{
+  "book": {
+    "id": "7a1a966c-7e65-4e89-aa4e-1929be528a81",
+    "title": "Test"
+  },
+  "chapter": {
+    "id": "bc8a5c41-585c-4b6a-82dd-1004c5f6570d",
+    "title": "Chapter 1",
+    "orderIndex": 0,
+    "audioPath": "bc8a5c41-585c-4b6a-82dd-1004c5f6570d.ogg"
+  },
+  "sentences": [
+    {
+      "id": "e4e7aa53-3a7d-44b9-af12-78486d7f39e1",
+      "orderIndex": 0,
+      "text": "わたしは にほんじんです。",
+      "audioPath": "e4e7aa53-3a7d-44b9-af12-78486d7f39e1.mp3"
+    },
+    {
+      "id": "1e4201a7-37a3-4707-9a51-f6631c3b79a9",
+      "orderIndex": 1,
+      "text": "わたしは はやしてすわたしは にほんじんです。",
+      "audioPath": "1e4201a7-37a3-4707-9a51-f6631c3b79a9.mp3"
+    },
+    {
+      "id": "5c929b95-be76-4057-a400-64a66b1f804d",
+      "orderIndex": 2,
+      "text": "わたしは にほんごの せんせいですこんにちは。",
+      "audioPath": "5c929b95-be76-4057-a400-64a66b1f804d.mp3"
+    },
+    {
+      "id": "e9012c5e-6f59-4067-ba4b-d66854a91663",
+      "orderIndex": 3,
+      "text": "わたしは はやしですはじめまして。",
+      "audioPath": "e9012c5e-6f59-4067-ba4b-d66854a91663.mp3"
+    },
+    {
+      "id": "97f3ec71-b5ec-49d6-81f5-046cdcb14af3",
+      "orderIndex": 4,
+      "text": "わたしは ジョン スミスです。",
+      "audioPath": "97f3ec71-b5ec-49d6-81f5-046cdcb14af3.mp3"
+    },
+    {
+      "id": "f820a3bb-e31c-4c95-934d-db484c413d3d",
+      "orderIndex": 5,
+      "text": "どうぞよろしく。",
+      "audioPath": "f820a3bb-e31c-4c95-934d-db484c413d3d.mp3"
+    },
+    {
+      "id": "22d49b30-baae-4c6a-895a-388bcd852bb5",
+      "orderIndex": 6,
+      "text": "あなたは ジョンさんですか。",
+      "audioPath": "22d49b30-baae-4c6a-895a-388bcd852bb5.mp3"
+    },
+    {
+      "id": "72b322ed-04d6-4222-a9b8-5adc00f525df",
+      "orderIndex": 7,
+      "text": "はい、わたしは ジョンです。",
+      "audioPath": "72b322ed-04d6-4222-a9b8-5adc00f525df.mp3"
+    },
+    {
+      "id": "6ebbf73d-c154-4d3f-a98f-1b7c4c4d3259",
+      "orderIndex": 8,
+      "text": "あなたは がくせいですか。",
+      "audioPath": "6ebbf73d-c154-4d3f-a98f-1b7c4c4d3259.mp3"
+    },
+    {
+      "id": "a387ae51-a5e7-48c1-bac5-7c4623ae4f17",
+      "orderIndex": 9,
+      "text": "はい、わたしは がくせいです。",
+      "audioPath": "a387ae51-a5e7-48c1-bac5-7c4623ae4f17.mp3"
+    },
+    {
+      "id": "0f5c860c-a49d-438b-b227-4d3c249e1846",
+      "orderIndex": 10,
+      "text": "あなたは フランスじんですか。",
+      "audioPath": "0f5c860c-a49d-438b-b227-4d3c249e1846.mp3"
+    },
+    {
+      "id": "1d4190d4-4cf9-45f6-9eb3-9d242e003097",
+      "orderIndex": 11,
+      "text": "いいえ、わたしは フランスじんでは ありません。",
+      "audioPath": "1d4190d4-4cf9-45f6-9eb3-9d242e003097.mp3"
+    },
+    {
+      "id": "169929a2-2f9c-4eba-a529-67666aeb07e3",
+      "orderIndex": 12,
+      "text": "アメリカじんです。",
+      "audioPath": "169929a2-2f9c-4eba-a529-67666aeb07e3.mp3"
+    },
+    {
+      "id": "7643eefe-468c-4e62-acd3-e917b12d79f4",
+      "orderIndex": 13,
+      "text": "この かたは どなたですか。",
+      "audioPath": "7643eefe-468c-4e62-acd3-e917b12d79f4.mp3"
+    },
+    {
+      "id": "2cfac1a5-aea6-4596-93ce-c1c7c2e1d1e7",
+      "orderIndex": 14,
+      "text": "その かたは インドネシアの アリさんです。",
+      "audioPath": "2cfac1a5-aea6-4596-93ce-c1c7c2e1d1e7.mp3"
+    },
+    {
+      "id": "af05ad04-6533-4389-80f1-8e9ac6a1e34c",
+      "orderIndex": 15,
+      "text": "その かたは どなたですか。",
+      "audioPath": "af05ad04-6533-4389-80f1-8e9ac6a1e34c.mp3"
+    },
+    {
+      "id": "41652d4f-3ae2-4cbf-bf63-0dee7eb7be01",
+      "orderIndex": 16,
+      "text": "この かたは ちゅうごくの チンさんです。",
+      "audioPath": "41652d4f-3ae2-4cbf-bf63-0dee7eb7be01.mp3"
+    },
+    {
+      "id": "46d3a924-5470-47ae-bff0-314617e36b5c",
+      "orderIndex": 17,
+      "text": "あの かたは どなたですか。",
+      "audioPath": "46d3a924-5470-47ae-bff0-314617e36b5c.mp3"
+    },
+    {
+      "id": "fefb82c2-2096-46c1-83bf-f4728b618e09",
+      "orderIndex": 18,
+      "text": "あの おんなの かたです。",
+      "audioPath": "fefb82c2-2096-46c1-83bf-f4728b618e09.mp3"
+    },
+    {
+      "id": "98ad050a-87f7-4ba3-95d5-a39faa196e89",
+      "orderIndex": 19,
+      "text": "あの かたは タイの ラタナーさんです。",
+      "audioPath": "98ad050a-87f7-4ba3-95d5-a39faa196e89.mp3"
+    },
+    {
+      "id": "fd2989c1-8a70-485d-9d0a-25165eb11c59",
+      "orderIndex": 20,
+      "text": "あの おとこの かたは どなたですか。",
+      "audioPath": "fd2989c1-8a70-485d-9d0a-25165eb11c59.mp3"
+    },
+    {
+      "id": "6535a380-7daa-4e1e-adeb-9bb77fc3f3a0",
+      "orderIndex": 21,
+      "text": "あの かたは フィリピンの ガロさんです。",
+      "audioPath": "6535a380-7daa-4e1e-adeb-9bb77fc3f3a0.mp3"
+    },
+    {
+      "id": "f89601b6-ad13-4a84-a3ed-35187693a480",
+      "orderIndex": 22,
+      "text": "アリさんは にほんじんですか。",
+      "audioPath": "f89601b6-ad13-4a84-a3ed-35187693a480.mp3"
+    },
+    {
+      "id": "8bf04a2e-2d47-40e5-8493-2c316d1c6121",
+      "orderIndex": 23,
+      "text": "いいえ、アリさんは にほんじんでは ありません。",
+      "audioPath": "8bf04a2e-2d47-40e5-8493-2c316d1c6121.mp3"
+    },
+    {
+      "id": "fabfec91-5f6e-4859-9094-2d0237727083",
+      "orderIndex": 24,
+      "text": "アリさんは インドネシアじんです。",
+      "audioPath": "fabfec91-5f6e-4859-9094-2d0237727083.mp3"
+    },
+    {
+      "id": "835db2d6-7e46-4fd9-82fc-28fa984f9062",
+      "orderIndex": 25,
+      "text": "チンさんは にほんじんですか。",
+      "audioPath": "835db2d6-7e46-4fd9-82fc-28fa984f9062.mp3"
+    },
+    {
+      "id": "99b93ca9-0048-4c06-a1be-7f271ab944a1",
+      "orderIndex": 26,
+      "text": "いいえ、チンさんも にほんじんでは ありません。",
+      "audioPath": "99b93ca9-0048-4c06-a1be-7f271ab944a1.mp3"
+    },
+    {
+      "id": "398e9428-0c8f-4a4c-82f1-98e3b9a10514",
+      "orderIndex": 27,
+      "text": "チンさんは ちゅうごくじんです。",
+      "audioPath": "398e9428-0c8f-4a4c-82f1-98e3b9a10514.mp3"
+    },
+    {
+      "id": "b685762c-363a-4338-ac04-d8b3f2ec27fa",
+      "orderIndex": 28,
+      "text": "ラタナーさんも ちゅうごくじんですか。",
+      "audioPath": "b685762c-363a-4338-ac04-d8b3f2ec27fa.mp3"
+    },
+    {
+      "id": "6bba0b37-86f6-4986-8802-e24c259cf425",
+      "orderIndex": 29,
+      "text": "いいえ、ラタナーさんは ちゅうごくじんでは ありません。",
+      "audioPath": "6bba0b37-86f6-4986-8802-e24c259cf425.mp3"
+    },
+    {
+      "id": "c18c38ab-7bde-4682-a255-ddcd602ccacd",
+      "orderIndex": 30,
+      "text": "ラタナーさんは タイじんです。",
+      "audioPath": "c18c38ab-7bde-4682-a255-ddcd602ccacd.mp3"
+    },
+    {
+      "id": "4aeea835-c5b1-473a-abf2-3619ce7f7b85",
+      "orderIndex": 31,
+      "text": "わたしは オーストラリアの がくせいです。",
+      "audioPath": "4aeea835-c5b1-473a-abf2-3619ce7f7b85.mp3"
+    },
+    {
+      "id": "b2dbd98f-dbd2-467b-a0b0-e29b687a79ae",
+      "orderIndex": 32,
+      "text": "わたしは イギリスの がくせいです。",
+      "audioPath": "b2dbd98f-dbd2-467b-a0b0-e29b687a79ae.mp3"
+    },
+    {
+      "id": "b5ad7d43-f025-4bac-bd12-4e8cc1664666",
+      "orderIndex": 33,
+      "text": "わたしは マレーシアの がくせいです。",
+      "audioPath": "b5ad7d43-f025-4bac-bd12-4e8cc1664666.mp3"
+    },
+    {
+      "id": "40551203-35e6-4a4c-8483-cf61d0c545ee",
+      "orderIndex": 34,
+      "text": "わたしは シンガポールの がくせいです。",
+      "audioPath": "40551203-35e6-4a4c-8483-cf61d0c545ee.mp3"
+    },
+    {
+      "id": "4f4308b0-4295-4bfc-8f81-82985442231f",
+      "orderIndex": 35,
+      "text": "わたしは インドの がくせいです。",
+      "audioPath": "4f4308b0-4295-4bfc-8f81-82985442231f.mp3"
+    }
+  ]
+}

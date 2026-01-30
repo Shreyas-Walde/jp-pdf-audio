@@ -1,0 +1,15 @@
+{
+  "book": {
+    "id": "288466e1-bdfb-4ffe-a0ec-ae8746f72e5d",
+    "title": "Nihongo Shoho Test",
+    "language": "ja"
+  },
+  "chapters": [
+    {
+      "id": "772edc72-7da0-4e62-a3cf-187f8cbab498",
+      "title": "Chapter 1",
+      "orderIndex": 0,
+      "audioPath": null
+    }
+  ]
+}

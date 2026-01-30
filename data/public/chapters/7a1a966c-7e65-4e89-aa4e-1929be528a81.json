@@ -1,0 +1,15 @@
+{
+  "book": {
+    "id": "7a1a966c-7e65-4e89-aa4e-1929be528a81",
+    "title": "Test",
+    "language": "ja"
+  },
+  "chapters": [
+    {
+      "id": "bc8a5c41-585c-4b6a-82dd-1004c5f6570d",
+      "title": "Chapter 1",
+      "orderIndex": 0,
+      "audioPath": "bc8a5c41-585c-4b6a-82dd-1004c5f6570d.ogg"
+    }
+  ]
+}
