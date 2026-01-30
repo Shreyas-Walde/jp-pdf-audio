@@ -45,7 +45,7 @@ export default function HomePage() {
                         {books.map((book) => (
                             <Link
                                 key={book.id}
-                                href={`/books/${book.id}`}
+                                href={`/read/${book.id}`}
                                 className="book-card"
                             >
                                 <div className="book-card__icon">📕</div>

@@ -7,6 +7,7 @@ interface AudioPlayerProps {
     onEnded?: () => void;
     autoPlay?: boolean;
     compact?: boolean;
+    iconOnly?: boolean;
 }
 
 /**
@@ -16,7 +17,8 @@ export default function AudioPlayer({
     src,
     onEnded,
     autoPlay = false,
-    compact = false
+    compact = false,
+    iconOnly = false
 }: AudioPlayerProps) {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -90,34 +92,35 @@ export default function AudioPlayer({
 
     if (!src) {
         return (
-            <div className={`audio-player audio-player--disabled ${compact ? 'audio-player--compact' : ''}`}>
-                <span className="audio-player__no-audio">音声なし</span>
+            <div className={`audio-player audio-player--disabled ${compact ? 'audio-player--compact' : ''} ${iconOnly ? 'audio-player--icon-only' : ''}`}>
+                <span className="audio-player__no-audio">{iconOnly ? '🔇' : '音声なし'}</span>
             </div>
         );
     }
 
     return (
-        <div className={`audio-player ${compact ? 'audio-player--compact' : ''}`}>
+        <div className={`audio-player ${compact ? 'audio-player--compact' : ''} ${iconOnly ? 'audio-player--icon-only' : ''}`}>
             <audio ref={audioRef} src={src} preload="metadata" />
 
             <button
                 className="audio-player__button"
                 onClick={togglePlay}
                 aria-label={isPlaying ? '一時停止' : '再生'}
+                title={isPlaying ? 'Pause' : 'Play'}
             >
                 {isPlaying ? (
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
                         <rect x="6" y="4" width="4" height="16" />
                         <rect x="14" y="4" width="4" height="16" />
                     </svg>
                 ) : (
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
                         <polygon points="5,3 19,12 5,21" />
                     </svg>
                 )}
             </button>
 
-            {!compact && (
+            {!iconOnly && !compact && (
                 <>
                     <div
                         className="audio-player__progress"

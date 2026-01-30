@@ -1,0 +1,6 @@
+{
+  "/page": "app/page.js",
+  "/read/[bookId]/[[...chapterId]]/page": "app/read/[bookId]/[[...chapterId]]/page.js",
+  "/api/books/[bookId]/chapters/route": "app/api/books/[bookId]/chapters/route.js",
+  "/api/chapters/[chapterId]/route": "app/api/chapters/[chapterId]/route.js"
+}

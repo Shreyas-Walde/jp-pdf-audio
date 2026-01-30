@@ -461,3 +461,331 @@ button {
     align-self: flex-end;
   }
 }
+
+/* Reader Layout */
+.reader-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.reader-header {
+  display: none;
+  /* Hidden on desktop by default */
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 20;
+}
+
+.reader-header__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-toggle {
+  font-size: 1.5rem;
+  padding: var(--space-1);
+  color: var(--color-text);
+}
+
+.reader-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 10;
+  transition: transform var(--transition-normal);
+}
+
+.sidebar__header {
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar__home-link {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.sidebar__home-link:hover {
+  color: var(--color-accent);
+}
+
+.sidebar__title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sidebar__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+}
+
+.sidebar__section-title {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.chapter-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.chapter-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+}
+
+.chapter-nav__item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+}
+
+.chapter-nav__item.is-active {
+  background: var(--color-accent);
+  color: white;
+}
+
+.chapter-nav__index {
+  font-weight: 600;
+  opacity: 0.7;
+  min-width: 20px;
+}
+
+.chapter-nav__title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chapter-nav__icon {
+  opacity: 0.7;
+}
+
+/* Main Content Area */
+.reader-content {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--color-bg);
+  /* Dark canvas */
+  padding: var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.chapter-view {
+  width: 100%;
+  max-width: 800px;
+  background: #ffffff;
+  /* Paper look */
+  color: #1a1a1a;
+  /* Dark text on paper */
+  padding: 60px 80px;
+  min-height: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Chapter View Header */
+.chapter-view__header {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-8);
+}
+
+.chapter-view__title-group {
+  flex: 1;
+}
+
+.chapter-view__index {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.chapter-view__title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #000;
+}
+
+.chapter-view__audio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.chapter-view__audio-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Page Content */
+.chapter-page {
+  font-size: 1.15rem;
+  line-height: 2.2;
+  /* Generous line height for reading */
+}
+
+.sentence-flow {
+  /* Using 'display: inline' logic would be tricky for buttons.
+       Instead, we'll keep them as blocks but styled to look like
+       a continuous flow if possible, OR just clean list. 
+       
+       Actually, "Textbook" usually implies vertical flow in Japan?
+       Assuming horizontal LTR for now based on the mockup.
+    */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Inline Sentence Component */
+.sentence-inline {
+  display: flex;
+  align-items: flex-start;
+  /* Align icon with top line of text */
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.sentence-inline:hover {
+  background-color: #f5f5f5;
+}
+
+.sentence-inline.is-active {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.sentence-inline__text {
+  flex: 1;
+  /* Font features for better Japanese reading */
+  font-feature-settings: "palt";
+  text-align: justify;
+}
+
+.sentence-inline__audio {
+  padding-top: 4px;
+  /* Optical alignment with text */
+  opacity: 0.3;
+  transition: opacity var(--transition-fast);
+}
+
+.sentence-inline:hover .sentence-inline__audio,
+.sentence-inline.is-active .sentence-inline__audio {
+  opacity: 1;
+}
+
+/* Icon-only Audio Player override for light mode context */
+.audio-player--icon-only .audio-player__button {
+  color: var(--color-accent);
+  background: transparent;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+
+.audio-player--icon-only .audio-player__button:hover {
+  transform: scale(1.2);
+  background: transparent;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .reader-header {
+    display: flex;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 60px;
+    /* Below header */
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+  }
+
+  .sidebar-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .chapter-view {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .chapter-view__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .chapter-view__audio {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .chapter-view__title {
+    font-size: 1.75rem;
+  }
+}
