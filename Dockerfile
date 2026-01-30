@@ -36,20 +36,19 @@ COPY processor/ ./processor/
 # Create data directories (don't copy local data)
 RUN mkdir -p data/books data/audio/sentences data/audio/chapters data/public/sentences data/public/chapters
 
-# Copy built Next.js app
-COPY --from=frontend-builder /app/web/.next ./web/.next
-COPY --from=frontend-builder /app/web/node_modules ./web/node_modules
-COPY --from=frontend-builder /app/web/package.json ./web/package.json
-COPY --from=frontend-builder /app/web/next.config.mjs ./web/next.config.mjs
+# Copy built Next.js standalone app
+COPY --from=frontend-builder /app/web/.next/standalone ./web
+COPY --from=frontend-builder /app/web/.next/static ./web/.next/static
 COPY --from=frontend-builder /app/web/public ./web/public
 
 # Environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # Expose port
 EXPOSE 3000
 
-# Start the Next.js server
+# Start the Next.js standalone server
 WORKDIR /app/web
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]
