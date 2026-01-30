@@ -1,0 +1,22 @@
+# PDF Processing
+pdfplumber>=0.10.0
+pytesseract>=0.3.10
+
+# Japanese NLP
+spacy>=3.7.0
+
+# Audio Processing
+pydub>=0.25.0
+
+# Database
+sqlite-utils>=3.35
+
+# HTTP Client (for Voicevox API)
+requests>=2.31.0
+httpx>=0.25.0
+
+# CLI
+click>=8.1.0
+
+# Utilities
+python-dotenv>=1.0.0

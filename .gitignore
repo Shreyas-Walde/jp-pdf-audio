@@ -1,0 +1,5 @@
+.agents/
+.github/
+.agent
+.venv
+node_modules
